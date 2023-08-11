@@ -1,1 +1,42 @@
-p { color: red; }
+body{
+  font-family:Roboto !important;
+  overflow-x: hidden;
+}
+
+.navbar a{ font-family:Cinzel !important; }
+
+.image-container {
+  position: relative;
+}
+
+.about-bg,
+.projects-bg,
+.experience-bg,
+.education-bg,
+.hobbies-bg {
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+  filter: brightness(0.6);
+  position: absolute;
+}
+
+.about-bg {
+  top: 0vh;
+}
+
+.projects-bg {
+  top: 100vh;
+}
+
+.experience-bg {
+  top: 200vh;
+}
+
+.education-bg {
+  top: 300vh; 
+}
+
+.hobbies-bg {
+  top: 400vh; 
+}
