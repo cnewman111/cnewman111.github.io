@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
+    <!-- page icon -->
+    <link rel="shortcut icon" type="x-icon" href="page_icon.jpg">
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -19,6 +23,9 @@
     <!-- Font awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <!-- JS -->
+    <script defer src="scripts.js"></script>
+
     <title>Colin Newman</title>
 </head>
 
@@ -33,57 +40,70 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav fs-5 ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#About">About</a>
+                    <a class="nav-link" href="#about">About</a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="#Projects">Projects</a>
+                    <a class="nav-link" href="#projects">Projects</a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="#Experience">Experience</a>
+                    <a class="nav-link" href="#experience">Experience</a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="#Education">Education</a>
+                    <a class="nav-link" href="#education">Education</a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="#Hobbies">Hobbies</a>
+                    <a class="nav-link" href="#hobbies">Hobbies</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#Contact">Contact <i class="fa-solid fa-envelope"></i> </a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="https://github.com/cnewman111">Github <i class="fa-brands fa-github"></i> </a>
                 </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="https://www.linkedin.com/in/colin-newman-819327211/">LinkedIn <i class="fa-brands fa-linkedin"></i> </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="Colin Newman Resume.pdf" download class="nav-link"> Resume <i class="fa-solid fa-download"></i> </a> 
                 </li>
             </ul>
           </div>
         </div>
-      </nav>
+    </nav>
 
 
-      <div class="section" id="About">
-        <img class ="about-bg" src="education.jpg" alt="background image of the UC Berkeley Campanile">
-      </div>
+    <section id="about">
+        <img class="bg-img" src="education.jpg" alt="background image of the UC Berkeley Campanile">
 
-      <div class="section" id="Projects">
-        <img class ="projects-bg" src="education.jpg" alt="background image">
-      </div>
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="Portrait.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text"> Work in progress!  For the purposes of grading: Education: UC Berkeley Class of 2024 : Work experience: Advanced Sleep medicine</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+    </section>
 
-      <div class="section" id="Experience">
-        <img class ="experience-bg" src="education.jpg" alt="background image">
-      </div>
+    <section id="projects">
+        <img class="bg-img"  src="education.jpg" alt="background image">
+    </section>
 
-      <div class="section" id="Experience">
-        <img class ="education-bg" src="education.jpg" alt="background image">
-      </div>
+    <section id="experience">
+        <img class="bg-img" src="education.jpg" alt="background image">
+    </section>
 
-      <div class="section" id="Hobbies">
-        <img class ="hobbies-bg" src="education.jpg" alt="background image">
-      </div>
+    <section id="education">
+        <img class="bg-img"  src="education.jpg" alt="background image">
+    </section>
+
+    <section id="hobbies">
+        <img class="bg-img"  src="education.jpg" alt="background image">
+    </section>
 
 </body>
 </html>
