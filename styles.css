@@ -8,18 +8,27 @@ section{
   width: 100vw;
 }
 
-.navbar a{ font-family:Cinzel !important; }
+.navbar { 
+  font-family:Cinzel !important; 
+  transition: all 0.5s;
+}
 
 .bg-img {
   height: 100vh;
   width: 100vw;
   object-fit: cover;
-  filter: brightness(0.6);
+  filter: brightness(.7);
   position: absolute;
+  z-index: -1;
 }
 
 .about {
   top: 0vh;
+
+  position: relative;
+  height: 100vh;
+  background-color: var(--primary-color);
+  overflow: hidden;
 }
 
 .projects {
