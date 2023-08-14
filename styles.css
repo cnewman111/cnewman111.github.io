@@ -63,7 +63,7 @@ body{
 
 /* Education */
 #education__container{
-  background-position: center;
+  background-position: center; /* Adjust the value as needed */
   background-size: cover;
   background-image: url('campanile.jpg');
   background-attachment: fixed;
