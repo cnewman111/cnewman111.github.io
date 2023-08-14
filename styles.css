@@ -1,19 +1,20 @@
+/* General */
 body{
   font-family:Roboto !important;
   overflow-x: hidden;
 }
+/* General end */
 
-section{
-  height: 100vh;
-  width: 100vw;
-}
-
+/* Navbar */
 .navbar { 
   font-family:Cinzel !important; 
   transition: all 0.5s;
 }
+/* Navbar end */
 
-.bg-img {
+
+/* Landing */
+.landing-img {
   height: 100vh;
   width: 100vw;
   object-fit: cover;
@@ -22,12 +23,9 @@ section{
   z-index: -1;
 }
 
-.landing {
-  top: 0vh;
-  position: relative;
+#landing {
   height: 100vh;
-  background-color: var(--primary-color);
-  overflow: hidden;
+  width: 100vw;
 }
 
 .landing__continue-btn {
@@ -47,3 +45,26 @@ section{
   color: var(--bs-light);
   opacity: 0.8;
 }
+/* Landing End */
+
+/* About */
+
+/* About end */
+
+/* Projects */
+#projects__container{
+  background-position: center;
+  background-size: cover;
+  background-image: url('sunset.jpg');
+  background-attachment: fixed;
+}
+/* Projects end */
+
+/* Education */
+#education__container{
+  background-position: center;
+  background-size: cover;
+  background-image: url('campanile.jpg');
+  background-attachment: fixed;
+}
+/* Education End */
