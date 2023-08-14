@@ -22,27 +22,28 @@ section{
   z-index: -1;
 }
 
-.about {
+.landing {
   top: 0vh;
-
   position: relative;
   height: 100vh;
   background-color: var(--primary-color);
   overflow: hidden;
 }
 
-.projects {
-  top: 100vh;
+.landing__continue-btn {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  transform: translateX(-50%);
+  z-index: 1;
+  color: var(--bs-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
 }
 
-.experience {
-  top: 200vh;
-}
-
-.education {
-  top: 300vh; 
-}
-
-.hobbies {
-  top: 400vh; 
+.landing__continue-btn:hover{
+  color: var(--bs-light);
+  opacity: 0.8;
 }
