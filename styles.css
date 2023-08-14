@@ -57,6 +57,7 @@ body{
   background-size: cover;
   background-image: url('sunset.jpg');
   background-attachment: fixed;
+  width: 97%;
 }
 /* Projects end */
 
@@ -66,5 +67,6 @@ body{
   background-size: cover;
   background-image: url('campanile.jpg');
   background-attachment: fixed;
+  width: 97%;
 }
 /* Education End */
