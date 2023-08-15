@@ -69,49 +69,26 @@ body{
   background-attachment: fixed;
   width: 97%; */
 
-  /* background: 
-  url('sunset.jpg');
-  background-attachment: fixed;
   background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 97%; */
-
-  z-index: -1;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size:cover;
   background-size: cover;
   background-image: url('sunset.jpg');
   background-attachment: fixed;
+  width: 97%; 
 }
+
+
 /* Projects end */
+
 
 /* Education */
 #education__container{
-  /* background-position: center; 
+  background-position: center; 
   background-size: cover;
   background-image: url('campanile.jpg');
   background-attachment: fixed;
-  width: 97%; */
-
-  /* background: 
-  url('campanile.jpg');
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 97%; */
-  z-index: -1;
-
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  background-image: url('campanile.jpg');
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  width: 97%;
 }
 /* Education End */
