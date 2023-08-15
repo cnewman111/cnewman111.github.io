@@ -3,6 +3,16 @@ body{
   font-family:Roboto !important;
   overflow-x: hidden;
 }
+
+.c-item{
+  height: 480px;
+}
+
+.c-img {
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(.7)
+}
 /* General end */
 
 /* Navbar */
@@ -53,20 +63,37 @@ body{
 
 /* Projects */
 #projects__container{
-  background-position: center;
+  /* background-position: center;
   background-size: cover;
   background-image: url('sunset.jpg');
   background-attachment: fixed;
+  width: 97%; */
+
+  background: 
+  url('sunset.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 97%;
+
 }
 /* Projects end */
 
 /* Education */
 #education__container{
-  background-position: center; /* Adjust the value as needed */
+  /* background-position: center; 
   background-size: cover;
   background-image: url('campanile.jpg');
   background-attachment: fixed;
+  width: 97%; */
+
+  background: 
+  url('campanile.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 97%;
 }
 /* Education End */
