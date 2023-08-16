@@ -67,7 +67,7 @@ body{
   background-size: cover;
   background-image: url('sunset.jpg');
   background-attachment: fixed;
-  -webkit-background-attachment: absolute;
+  -webkit-background-image: url('black');
   width: 97%;
 }
 
@@ -81,7 +81,7 @@ body{
   background-size: cover;
   background-image: url('campanile.jpg');
   background-attachment: fixed;
-  -webkit-background-attachment: absolute;
+  -webkit-background: absolute;
   width: 97%;
 }
 /* Education End */
