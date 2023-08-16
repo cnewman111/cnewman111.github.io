@@ -63,20 +63,12 @@ body{
 
 /* Projects */
 #projects__container{
-  /* background-position: center;
-  background-size: cover;
-  background-image: url('sunset.jpg');
-  background-attachment: fixed;
-  width: 97%; */
-
   background-position: center;
-  -o-background-size: cover;
-  -moz-background-size: cover;
-  -webkit-background-size:cover;
   background-size: cover;
   background-image: url('sunset.jpg');
   background-attachment: fixed;
-  width: 97%; 
+  -webkit-background-attachment: absolute;
+  width: 97%;
 }
 
 
@@ -89,6 +81,7 @@ body{
   background-size: cover;
   background-image: url('campanile.jpg');
   background-attachment: fixed;
+  -webkit-background-attachment: absolute;
   width: 97%;
 }
 /* Education End */
