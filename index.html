@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- page icon -->
+    <link rel="shortcut icon" type="x-icon" href="page_icon.jpg">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Cinzel Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- CSS Stylsheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Font awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- JS -->
+    <script defer src="scripts.js"></script>
+
+    <title>CS 180 - Colin Newman</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark px-5 pt-2 fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand fs-3" href="#landing"> CS 180 - Colin Newman </a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav fs-5 ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#landing"> Home </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="proj1.html"> Project 1 </a>
+                </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <!-- Navbar end -->
+
+<!-- Landing start -->
+<section id="landing">
+    <img class="landing-img" src="campanile.jpg" alt="background image of the UC Berkeley Campanile">
+
+    <div class="h-100 container position-relative p-5">
+        <div class="row h-100 align-items-center">
+            <!-- Text content on the left -->
+            <div class="col-md-6 text-white">
+                <h1 class="fw-bold"> Colin Newman </h1>
+                <p class="lead mb-4">
+                    UC Berkeley CS 180 Course Portfolio
+                </p>
+            </div>
+
+            <!-- Carousel on the right -->
+            <div class="col-lg-6">
+                <div id="landing-carousel" class="carousel slide" data-bs-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-bs-target="#landing-carousel" data-bs-slide-to="0" class="active"></li>
+                    </ol>
+                    <div class="carousel-inner text-white">
+                        <div class="carousel-item active p-3 bg-dark" href="proj1.html">
+                            <a href="proj1.html" class="link-heading">
+                                <h3>Project 1</h3>
+                                <em>Colorizing the Prokudin-Gorskii photo collection</em>
+                                <img src="onion_church.jpg" class="d-block w-100" alt="Project 1">
+                              </a>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#landing-carousel" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#landing-carousel" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Landing end -->
+</body>

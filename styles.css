@@ -1,0 +1,55 @@
+/* General */
+body{
+    font-family:Roboto !important;
+    overflow-x: hidden;
+  }
+  
+  .c-item{
+    height: 480px;
+  }
+  
+  .c-img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(.7)
+  }
+  /* General end */
+  
+  /* Navbar */
+  .navbar { 
+    font-family:Cinzel !important; 
+    transition: all 0.5s;
+  }
+  /* Navbar end */
+  
+  
+  /* Landing */
+  .landing-img {
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+    filter: brightness(.7);
+    position: absolute;
+    z-index: -1;
+  }
+
+  .fullscreen-img-right {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+
+}
+  
+  #landing {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* Landing End */
+
+  /* Links */
+  .link-heading {
+    text-decoration: none; /* Remove underline from the link */
+    color: inherit; /* Inherit color from the parent (which is the <h3> tag color) */
+  }
+  /* Links end */
