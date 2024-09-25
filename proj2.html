@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- page icon -->
+    <link rel="shortcut icon" type="x-icon" href="page_icon.jpg">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Cinzel Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- CSS Stylsheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Font awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- JS -->
+    <script defer src="scripts.js"></script>
+    <title>CS 180 - Colin Newman</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark px-5 pt-2 fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand fs-3" href="index.html"> CS 180 - Colin Newman </a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav fs-5 ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html"> Home </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="proj1.html"> Project 1 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="proj2.html"> Project 2 </a>
+                </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <!-- Navbar end -->
+
+<!-- Landing start -->
+<section id="landing">
+    <div class="container-fluid h-100">
+        <div class="row no-gutters h-100">
+            <!-- Left side: white block with text -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center text-center bg-dark">
+                <div>
+                    <h1 class="fw-bold text-white"> Project 2 </h1>
+                    <p class="lead mb-4 text-white">Fun with Filters and Frequencies</p>
+                </div>
+            </div>
+            <!-- Right side: image -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center text-center bg-secondary">
+                    <img class="img-fluid rounded" src="proj2_assets/city4.jpg">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Landing end -->
+
+<!-- Overview start -->
+<div class="container my-5">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h2> Overview </h2>
+            <p> In this project, we explore two apparently unrelated concepts - filters and frequency!
+            </p>
+            
+            <p> As we progress through this project, we will see that these are actually closely related ideas.  </p>
+
+        </div>
+        <div class="col-md-6">
+            <img src="proj2_assets/im242.jpg" class="img-fluid">
+            My recreation of orapple 
+        </div>
+    </div>
+</div>
+<!-- Overview end -->
+
+<!-- Part 0 Start -->
+<div class="container">
+    <div class=" section-title">
+        <h2> Part 1.1: The Finite Difference Operator </h2>
+    </div>
+    <div class="section-text">
+        <p> Sometimes we want a way of quantifying where the largest changes in the image are happening.  If images were continuous, 
+            we might consider taking the derivative.  However, since an image is discrete, the best we can do is take a delta between pixel values
+            over a specified period.
+        </p>
+        <p>
+            One way of doing this is through the Finite Difference Operator.  By convolving the image with the mask [1, -1], we get a new matrix representing the deltas in the horizontal direction.
+            We can do a similar thing with its transpose to get the differences in the y direction.
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im111.jpg" alt="Photo 1" class="photo img-fluid">
+            Original Image
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im114.jpg" alt="Photo 2" class="photo img-fluid">
+            dx
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im115.jpg" alt="Photo 3" class="photo img-fluid">
+            dy
+        </div>
+    </div>
+    <div class="section-text">
+        <p>
+            By taking the pixel-wise gradient magnitude using the two masks from the last step, we can produce a gradient magnitude image, which represents the discrete 
+            gradient at every point in the image.  
+        </p>
+        <p>
+            Lastly, we may find it useful to assign a cutoff frequency to the gradient magnitude image produce an edge image with only 2 states: 255 for an edge, 0 for not an edge.
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="proj2_assets/im112.jpg" alt="Photo 2" class="photo img-fluid">
+            Gradient Magnitude Image
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="proj2_assets/im113.jpg" alt="Photo 3" class="photo img-fluid">
+            Edge Image
+        </div>
+    </div>
+    <div class="section-text">
+        <p> The filter is effective at outlining strong edges such as the man against the sky and the tripod, while cutting out irrelevant noise, such as blades of grass.
+        </p>
+    </div>
+<!-- Part 0 End -->
+
+<!-- Part 1 Start -->
+<div class="container my-5">
+    <div class=" section-title">
+        <h2> Part 1.2: Derivative of Gaussian (DoG) Filter </h2>
+    </div>
+    <div class="section-text">
+        <p> Often, very small localized areas of change can erroneously be misclassified as edges.  Additionally, you can see areas in the man's coat above where
+            the edge is very thin or even broken in places.  It would be better if our edge detection method was a little more robust to noise.
+        </p>
+        <p> We can use a gaussian filter to blur the image, which will reduce the effect of very localized noise: 
+        </p>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="proj2_assets/im121.jpg" alt="Photo 1" class="photo img-fluid">
+            Gaussian blur applied to original image
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="proj2_assets/im122.jpg" alt="Photo 2" class="photo img-fluid">
+            Edge detection applied to blurred image
+        </div>
+    </div>
+    <div class="section-text">
+        <p> Now we can see that the edges are much more thick and robust compared to the original edge image.  The only place where the man's coat is not highlighted as an edge
+            is where the background blends perfectly into it, such as the bottom left corner of his coat.  There are very few false positives.
+        </p>
+
+        <p> There is one last modification we can make to create the Derivative of Gaussian filter.  Because convolution is a commutative operation, we can apply 
+            the gaussian blur directly to the dx and dy filters.  It is more efficent to do it this way, as applying a convolution to the smaller dx and dy filters is much cheaper 
+            than convolving with the (potentially very large) image.
+        </p>
+
+        <p> The x and y DoG Filters, as well as the result of using them for edge detection, is below. 
+        </p>
+    </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <img src="proj2_assets/im123.jpg" alt="Photo 1" class="photo img-fluid">
+                X direction DoG
+            </div>
+            <div class="col-md-4 mb-3">
+                <img src="proj2_assets/im124.jpg" alt="Photo 2" class="photo img-fluid">
+                Y Direction DoG
+            </div>
+            <div class="col-md-4 mb-3">
+                <img src="proj2_assets/im125.jpg" alt="Photo 3" class="photo img-fluid">
+                Result of using DoG for edge detection - identical to the image from above
+            </div>
+        </div>
+</div>
+
+<!-- Part 1 End -->
+
+
+<!-- Part 2 Start -->
+<div class="container">
+    <div class=" section-title">
+        <h2> Part 2.1 Image "Sharpening" </h2>
+    </div>
+    <div class="section-text">
+        <p> If gaussian filters work blur images, and they work as a low pass filter, then it is intuitive that subtracting the result of a gaussian filter
+            from an image acts as a high pass.
+        </p>
+        <p> Adding these high frequencies back to the image can make it appear "sharper".  We call this the unsharp mask filter.  The k value below represents what multiplicative factor we used when adding
+            these frequencies to the original image.
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im211.jpg" alt="Photo 1" class="photo img-fluid">
+            <p> k = 0 (Original) </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im212.jpg" alt="Photo 2" class="photo img-fluid">
+            <p> k = 1</p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im213.jpg" alt="Photo 3" class="photo img-fluid">
+            <p> k = 5</p>
+        </div>
+    </div>
+    <div class="section-text">
+        <p> For this image, it worked reasonably well.  You could argue that the k = 1 image looks better than the original.
+        </p>
+        <p> Now, lets try adding our own blur, and then attempt to recover the image.
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im217.jpg" alt="Photo 1" class="photo img-fluid">
+            <p> Original </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im218.jpg" alt="Photo 2" class="photo img-fluid">
+            <p> Blurred </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im219.jpg" alt="Photo 3" class="photo img-fluid">
+            <p> Restored </p>
+        </div>
+    </div>
+    <p> For this image, it also works ok.  You can make out a little more detail in the restored image than the blurred one, particularly in the leaves on the tree,
+        but it is far from perfect.  
+    </p>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im214.jpg" alt="Photo 1" class="photo img-fluid">
+            <p> k=0 (Original) </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im215.jpg" alt="Photo 2" class="photo img-fluid">
+            <p> k=1 </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im216.jpg" alt="Photo 3" class="photo img-fluid">
+            <p> k = 5 </p>
+        </div>
+    </div>
+
+    <p> For this image, the unsharp mask filter was not very effective.  Even the k = 5 image is still very blurry, yet it is even more uncomfortable to look at.
+        The unsharp mask filter is definently not magic.
+    </p>
+</div>
+</div>
+
+<!-- Bells and Whistles 1 -->
+<div class="container">
+    <div class=" section-title">
+        <h2> Part 2.2: Hybrid Images </h2>
+    </div>
+    <div class="section-text">
+        <p>  By adjusting cutoff frequencies, it is possible to merge 2 images together such that it looks like one image up close, and a different image
+            from further away.  This is because the high frequencies dominate when visible, but as the viewer looses the ability to make out the fine details, the low
+            frequencies appear.  Therefore, by averaging the result of a low pass filter on one image and a high pass on another, you can create a hybrid image.
+        </p>
+        <p> If you have trouble seeing the result, try openning the image in a new tab and zooming in and out.
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im224.jpg" alt="Photo 1" class="photo img-fluid">
+            <p> Tiger (Low Pass) </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im225.jpg" alt="Photo 2" class="photo img-fluid">
+            <p> Jaguar (High Pass) </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im226.jpg" alt="Photo 3" class="photo img-fluid">
+            <p> Tiguar (Hybrid Image) </p>
+        </div>
+    </div>
+
+    Here is the fourier magnitude plot for each of the following images:
+
+    <div class="row g-0">
+        <div class="col-md-2">
+            <img src="proj2_assets/fft_jag.jpg" alt="Photo 1" class="photo img-fluid">
+            Jaguar
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/fft_tiger.jpg" alt="Photo 2" class="photo img-fluid">
+            Tiger
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/fft_jag_filtered.jpg" alt="Photo 3" class="photo img-fluid">
+            Jaguar Filtered
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/fft_tiger_filtered.jpg" alt="Photo 3" class="photo img-fluid">
+            Tiger Filtered
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/fft_hybrid.jpg" alt="Photo 3" class="photo img-fluid">
+            Hybrid Image
+        </div>
+    </div>
+
+    As you can see, some of the values near the origin of the filtered jaguar plot are attenuated, whereas values far from the origin in the filtered tiger plot are attenuated.  The combined
+    plot show characteristics of both of the filtered plots.
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im227.jpg" alt="Photo 1" class="photo img-fluid">
+            <p> Smiley (Low Pass) </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im228.jpg" alt="Photo 2" class="photo img-fluid">
+            <p> Orange (High Pass) </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im229.jpg" alt="Photo 3" class="photo img-fluid">
+            <p> Smorange (Hybrid Image) </p>
+        </div>
+    </div>
+
+    This is an example of a faild hybrid image: 
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im2210.jpg" alt="Photo 1" class="photo img-fluid">
+            <p> Apple (Low Pass) </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im2211.jpg" alt="Photo 2" class="photo img-fluid">
+            <p> Another Apple (High Pass) </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/im2212.jpg" alt="Photo 3" class="photo img-fluid">
+            <p> Apple ^ 2 (Hybrid Image) </p>
+        </div>
+    </div>
+    I suspect that it failed because the apple (company) logo does not have a high enough diversity of frequencies.
+    </div>
+
+<!-- Bells and Whistles 2 End -->
+
+<!-- Final section -->
+<div class="container">
+    <div class=" section-title">
+        <h2> Part 2.3: Gaussian and Laplacian Stacks  </h2>
+    </div>
+    <p>  Laplacian stacks are a way of seperating an image's frequencies into different layers.  They are a prerequisite to the blending we will do in the next section.
+    </p>
+    <div class="row g-0">
+        <div class="col-md-2">
+            <img src="proj2_assets/apple_laplacian1.jpg" alt="Photo 1" class="photo img-fluid">
+            Level 1
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/apple_laplacian2.jpg" alt="Photo 2" class="photo img-fluid">
+            Level 2
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/apple_laplacian3.jpg" alt="Photo 3" class="photo img-fluid">
+            Level 3
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/apple_laplacian4.jpg" alt="Photo 3" class="photo img-fluid">
+            Level 4
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/apple_laplacian5.jpg" alt="Photo 3" class="photo img-fluid">
+            Level 5 / Bottom of gaussian stack
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/apple_reconstructed.jpg" alt="Photo 3" class="photo img-fluid">
+            Reconstructed Apple - 5 previous levels summed together
+        </div>
+    </div>
+    <div class="row g-0">
+        <div class="col-md-2">
+            <img src="proj2_assets/apple_gaussian1.jpg" alt="Photo 1" class="photo img-fluid">
+            Level 1
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/apple_gaussian2.jpg" alt="Photo 2" class="photo img-fluid">
+            Level 2
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/apple_gaussian3.jpg" alt="Photo 3" class="photo img-fluid">
+            Level 3
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/apple_gaussian4.jpg" alt="Photo 3" class="photo img-fluid">
+            Level 4
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/apple_gaussian5.jpg" alt="Photo 3" class="photo img-fluid">
+            Level 5
+        </div>
+    </div>
+    
+        <div class="row g-0">
+            <div class="col-md-2">
+                <img src="proj2_assets/orange_laplacian1.jpg" alt="Photo 1" class="photo img-fluid">
+                Level 1
+            </div>
+            <div class="col-md-2">
+                <img src="proj2_assets/orange_laplacian2.jpg" alt="Photo 2" class="photo img-fluid">
+                Level 2
+            </div>
+            <div class="col-md-2">
+                <img src="proj2_assets/orange_laplacian3.jpg" alt="Photo 3" class="photo img-fluid">
+                Level 3
+            </div>
+            <div class="col-md-2">
+                <img src="proj2_assets/orange_laplacian4.jpg" alt="Photo 3" class="photo img-fluid">
+                Level 4
+            </div>
+            <div class="col-md-2">
+                <img src="proj2_assets/orange_laplacian5.jpg" alt="Photo 3" class="photo img-fluid">
+                Level 5 / Bottom of Gaussian Stack
+            </div>
+            <div class="col-md-2">
+                <img src="proj2_assets/orange_reconstructed.jpg" alt="Photo 3" class="photo img-fluid">
+                Reconstructed Orange - 5 previous levels summed together
+            </div>
+        </div>
+        <div class="row g-0">
+            <div class="col-md-2">
+                <img src="proj2_assets/orange_gaussian1.jpg" alt="Photo 1" class="photo img-fluid">
+                Level 1
+            </div>
+            <div class="col-md-2">
+                <img src="proj2_assets/orange_gaussian2.jpg" alt="Photo 2" class="photo img-fluid">
+                Level 2
+            </div>
+            <div class="col-md-2">
+                <img src="proj2_assets/orange_gaussian3.jpg" alt="Photo 3" class="photo img-fluid">
+                Level 3
+            </div>
+            <div class="col-md-2">
+                <img src="proj2_assets/orange_gaussian4.jpg" alt="Photo 3" class="photo img-fluid">
+                Level 4
+            </div>
+            <div class="col-md-2">
+                <img src="proj2_assets/orange_gaussian5.jpg" alt="Photo 3" class="photo img-fluid">
+                Level 5
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class=" section-title">
+        <h2> Part 2.4: Multiresolution Blending (a.k.a. the oraple!) </h2>
+    </div>
+    <div class="section-text">
+        <p> Sometimes, we would like to merge images together so they look coherent.  However, as you can see below in the space image, simply stitching the images together
+            makes the seam very apparent.  
+        </p>
+        <p> Instead, we can do something called multiresolution blending. The key idea is that we can blend frequencies between the images at different rates - so high frequencies
+            are less blurred than low frequencies.  This retains the structure of both images, while tricking the eye into beleiving they look coherent.
+        </p>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/space_1.jpg" alt="Photo 1" class="photo img-fluid">
+            Image 1
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/space_2.jpg" alt="Photo 2" class="photo img-fluid">
+            Image 2
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/space_3.jpg" alt="Photo 3" class="photo img-fluid">
+            Filter
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="proj2_assets/space_5.jpg" alt="Photo 1" class="photo img-fluid">
+            No Blending
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="proj2_assets/space_4.jpg" alt="Photo 2" class="photo img-fluid">
+            Multiresolution Blending
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/ice1.jpg" alt="Photo 1" class="photo img-fluid">
+            Image 1
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/ice2.jpg" alt="Photo 2" class="photo img-fluid">
+            Image 2
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/ice3.jpg" alt="Photo 3" class="photo img-fluid">
+            Filter
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="proj2_assets/ice4.jpg" alt="Photo 1" class="photo img-fluid">
+            No Blending
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="proj2_assets/ice5.jpg" alt="Photo 2" class="photo img-fluid">
+            Multiresolution Blending
+        </div>
+    </div>
+    Here is the stack for the blending of these two images: 
+    <div class="row g-0">
+        <div class="col-md-2">
+            <img src="proj2_assets/ice_stack1.jpg" alt="Photo 1" class="photo img-fluid">
+            Layer 1
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/ice_stack2.jpg" alt="Photo 2" class="photo img-fluid">
+            Layer 2
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/ice_stack3.jpg" alt="Photo 3" class="photo img-fluid">
+            Layer 3
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/ice_stack4.jpg" alt="Photo 3" class="photo img-fluid">
+            Layer 4
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/ice_stack5.jpg" alt="Photo 3" class="photo img-fluid">
+            Layer 5
+        </div>
+        <div class="col-md-2">
+            <img src="proj2_assets/ice_stack6.jpg" alt="Photo 3" class="photo img-fluid">
+            Layer 6
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/city1.jpg" alt="Photo 1" class="photo img-fluid">
+            Image 1
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/city2.jpg" alt="Photo 2" class="photo img-fluid">
+            Image 2
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj2_assets/city3.jpg" alt="Photo 3" class="photo img-fluid">
+            Filter
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="proj2_assets/city5.jpg" alt="Photo 1" class="photo img-fluid">
+            No Blending
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="proj2_assets/city4.jpg" alt="Photo 2" class="photo img-fluid">
+            Multiresolution Blending
+        </div>
+    </div>
+    This image doesen't look quite as good as the first too - I suspect it is because one of the pictures is very clearly in the foreground, and it actually doesen't matter that the lighting is different
+     as this is what you would expect from two objects that are very far apart.  However, you can see that the poor cropping job is much less noticable in the right image, especially around the satellite dish
+     in the top left, and around the chin of the face.
+    
+</div>
+<!-- Final section end -->
+
+
+
+</body>
