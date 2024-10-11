@@ -170,11 +170,11 @@
             scaled.  This means we have to do an aphine transformation of the form y = Ax + b to map one triangle in the source image to the target shape, where x is the original coordinate
             and y is the resulting coordinate.
         </p>
-        <p> Fortunately, it is possible to take these 3 equations (one for each point on the triangle) and stack them into one larger equation of the form y = Ax, where A is a 6 x 6 matrix.  
+        <p> Fortunately, it is possible to take these 3 equations (one for each point on the triangle) and stack them into one larger (but simpler to solve) equation of the form y = Ax, where A is a 6 x 6 matrix.  
             Assuming the triangulation was valid, this matrix has a nonzero determinant, and we can simply solve for the mapping.
             </p>
 
-        <p> Finally, by calculating the transformation for every triangle that maps every point in the triangle to the average triangulation of me and Connor, we produce the following images: </p>
+        <p> Finally, by calculating the transformation for every triangle that maps every point in the triangle to the average triangulation of Connor and I, we produce the following images: </p>
 
 
 
@@ -190,7 +190,7 @@
         </div>
     </div>
     <div class="section-text">
-        <p> Upon averaging these images, we get the "halfway face".  Note that there are no correspondences in the background, so they appear messy. The goal was instead to merge the face and hair. </p>
+        <p> Upon averaging the two image's pixel values, we get the "halfway face".  Note that there are no correspondences in the background, so they appear messy. The goal was instead to merge the face and hair cleanly, which I beleive has been acheived. </p>
     </div>
         <div class="row">
             <div class="col-md-6 mx-auto">
@@ -283,7 +283,7 @@
     <div class="row">
         <div class="col-md-4 mb-3">
             <img src="proj3_assets/im51.jpg" alt="Photo 1" class="photo img-fluid">
-            <p> Caricature of an average danish male: a < 0 </p>
+            <p> Caricature of an average danish male: a < 0.  Lighter, wider cheeks</p>
         </div>
         <div class="col-md-4 mb-3">
             <img src="proj3_assets/im52.jpg" alt="Photo 2" class="photo img-fluid">
@@ -291,7 +291,7 @@
         </div>
         <div class="col-md-4 mb-3">
             <img src="proj3_assets/im53.jpg" alt="Photo 3" class="photo img-fluid">
-            <p> Caricature of me: a > 1 </p>
+            <p> Caricature of me: a > 1.  Darker, more depressed cheeks. </p>
         </div>
     </div>
 
