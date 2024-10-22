@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- page icon -->
+    <link rel="shortcut icon" type="x-icon" href="page_icon.jpg">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Cinzel Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- CSS Stylsheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Font awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- JS -->
+    <script defer src="scripts.js"></script>
+    <title>CS 180 - Colin Newman</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark px-5 pt-2 fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand fs-3" href="index.html"> CS 180 - Colin Newman </a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav fs-5 ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html"> Home </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="proj1.html"> Project 1 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="proj2.html"> Project 2 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="proj3.html"> Project 3 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="proj4a.html"> Project 4 - Part 1 </a>
+                </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <!-- Navbar end -->
+
+<!-- Landing start -->
+<section id="landing">
+    <div class="container-fluid h-100">
+        <div class="row no-gutters h-100">
+            <!-- Left side: white block with text -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center text-center bg-dark">
+                <div>
+                    <h1 class="fw-bold text-white"> Project 4 </h1>
+                    <p class="lead mb-4 text-white"> Image Warping and Mosaicing - Part 1 </p>
+                </div>
+            </div>
+            <!-- Right side: image -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center text-center bg-secondary">
+                    <img class="img-fluid rounded" src="proj4a_assets/cover.jpg">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Landing end -->
+
+<!-- Overview start -->
+<div class="container my-5">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h2> Overview </h2>
+            <p> In part 1 of this project, we explore how images taken from one perspective can be warped to appear as if they are being viewed from a different perspective.  
+            </p>
+
+            <p> First, we will use this to rectify images that were taken at an angle to make them look as if you are looking at them straight on.  </p>
+            
+            <p> Then, we will use this to show how we can merge multiple images taken from the same position (but a different orientation, i.e, pitch yaw roll) can be stitched together
+                into a larger image. 
+            </p>
+
+        </div>
+        <div class="col-md-6">
+            <img src="proj4a_assets/203.png" class="img-fluid">
+            <p> The subtle skull rectified from Holbein's painting "The Ambassadors" to its intended viewing angle </p>
+        </div>
+    </div>
+</div>
+<!-- Overview end -->
+
+<!-- Part 0 Start -->
+<div class="container">
+    <div class=" section-title">
+        <h2> Shooting the Pictures </h2>
+    </div>
+    <div class="section-text">
+        <p> Here are the three sets of pictures that I will want to unify into three images by the end of the project:
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/000.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/001.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/002.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/003.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/004.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/005.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/006.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/007.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/008.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+    </div>
+    </div>
+<!-- Part 0 End -->
+
+<!-- Part 1 Start -->
+<div class="container my-5">
+    <div class=" section-title">
+        <h2> Recovering Homographies </h2>
+    </div>
+    <div class="section-text">
+        <p> A homography, or projective transformation is a distortion of space with 8 degrees of freedom.  It is more powerful than a linear transformation as it 
+            does not necessarily preserve parallel lines.  However, straight lines remain straight after the transformation is applied.
+        </p>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <img src="proj4a_assets/homography.png" alt="Photo 1" class="photo img-fluid">
+            <p> An example of a perspective transformation (homography) </p>
+        </div>
+    </div>
+    <div class="section-text">
+        <p> In the graphic above, notice how it looks like you are looking at the left polygon from slightly up and to the right - this is why it is called a perspective
+            transformation.  Since our goal is to modify the perspective of the images, this is the transformation we want.
+        </p>
+
+        <p> Perspective transformations are simply to calculate given 4 points (corresponding to the 8 dof) using a linear system of equations in NumPy.
+        </p>
+    </div>
+</div>
+
+<!-- Part 1 End -->
+
+
+<!-- Part 2 Start -->
+<div class="container">
+    <div class=" section-title">
+        <h2> Image Warping / Image Rectification </h2>
+    </div>
+    <div class="section-text">
+        <p> In order to recfify images, we must first label them with 4 points.  I created a tool to do this using matplotlib:
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/204.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/205.png" alt="Photo 2" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/206.png" alt="Photo 3" class="photo img-fluid">
+        </div>
+    </div>
+    <div class="section-text">
+        <p> Then, for each image, I mapped the four corners I labelled to the four corners of a rectangle of proper dimensions, and solved for the inverse homography.  
+            I solved for the inverse so that I could iterate over every pixel (using efficent numpy code) of the target shape and avoid any holes in the image.  Using this mapping, I 
+            populated the target range with pixels from the source image.
+        </p>
+        <p> This is how I rectified the skull from Holbein's painting, and also produced the following results:
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/200.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/201.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/202.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <p> Interestingly, you can see that the floors of the building are not level with each other, which I did not notice in the original image. I guess it worked!
+        </p>
+    </div>
+
+</div>
+
+<!-- Bells and Whistles 1 -->
+<div class="container">
+    <div class=" section-title">
+        <h2> Blending the Images into Mosaics: </h2>
+    </div>
+    <div class="section-text">
+        <p>  Unfortunately, creating a mosaic image isnt as simple as overlapping the areas they have in common to get a larger images.  This is because
+            the images were taken at different angles, and need to be transformed onto the same plane as each other.
+        </p>
+        <p> Therefore, every image must be rectified to its adjacent image using a homography, using the same labelling tool as earlier to label corresponding points:
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/labeled1.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/labeled2.png" alt="Photo 1" class="photo img-fluid"> 
+        </div>
+    </div>
+
+    <div class="section-text">
+        <p>  After the points are gathered, we transform both images onto the same image array, using a similar process as when we did rectification.
+            Crucially, we need to determine the center of intersection and perform a laplacian blending, just like in project 2.  Without this blending, there would be 
+            a sharp edge between the two images, due to the exposure settings that a cell phone's camera applies automatically. 
+            </p> <p>
+            This transformation and blending process is repeated for each image in the mosaic.  Here are my final results for the three sets of images:
+        </p>
+
+    </div>
+
+    <div class="row-md-12 g-0 ">
+        <div class="col-md-12 m-3">
+            <img src="proj4a_assets/402.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-12 m-3">
+            <img src="proj4a_assets/400.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-12 m-3">
+            <img src="proj4a_assets/401.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+    </div>
+
+    As you can see, the images are well aligned and well blended.  Other than the irregular edges, it almost looks like they were part of a wide angle shot in the first place, which was the goal!
+</div>
+<!-- Final section end -->
+
+<!-- Part 2 Start -->
+<div class="container my-5">
+    <div class=" section-title">
+        <h2> Bells and Whistles: Creating Imaginary Posters </h2>
+    </div>
+    <div class="section-text">
+        <p> Another thing we can do is transform parts of an image to match the perspective of another.  In this case, neither area is rectangular, and I used my labelling 
+            tool from above to map a non-rectangular area to another:
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/500.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/501.png" alt="Photo 2" class="photo img-fluid">
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj4a_assets/502.png" alt="Photo 3" class="photo img-fluid">
+        </div>
+    </div>
+    <div class="section-text">
+        <p> This was a simple, yet suprisingly effective technique.  I expirimented with gaussian blending, however it is better to not use it in this case as you do not want the "poster" to blend into the wall.
+            Instead, I chose the two pictures intentionally so that the light from the lamp appears to be reflecting off of the "poster", which also has a bit of glare.
+        </p>
+    </div>
+
+</div>
+
+
+</body>
