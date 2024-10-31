@@ -53,7 +53,7 @@
                     <a class="nav-link" href="proj3.html"> Project 3 </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="proj4a.html"> Project 4 - Part 1 </a>
+                    <a class="nav-link active" href="proj4a.html"> Project 4 </a>
                 </li>
             </ul>
           </div>
@@ -69,7 +69,7 @@
             <div class="col-md-6 d-flex align-items-center justify-content-center text-center bg-dark">
                 <div>
                     <h1 class="fw-bold text-white"> Project 4 </h1>
-                    <p class="lead mb-4 text-white"> Image Warping and Mosaicing - Part 1 </p>
+                    <p class="lead mb-4 text-white"> Image Warping and Mosaicing </p>
                 </div>
             </div>
             <!-- Right side: image -->
@@ -86,13 +86,12 @@
     <div class="row align-items-center">
         <div class="col-md-6">
             <h2> Overview </h2>
-            <p> In part 1 of this project, we explore how images taken from one perspective can be warped to appear as if they are being viewed from a different perspective.  
+            <p> In part 1 of this project, we explore how images taken from one perspective can be warped to appear as if they are being viewed from a 
+                different perspective.  This also allows us to create mosaics of multiple images cobbled together.
             </p>
 
-            <p> First, we will use this to rectify images that were taken at an angle to make them look as if you are looking at them straight on.  </p>
-            
-            <p> Then, we will use this to show how we can merge multiple images taken from the same position (but a different orientation, i.e, pitch yaw roll) can be stitched together
-                into a larger image. 
+            <p> In part 2 of this project, we will figure out how we can make this process automatic.  While in part 1, we will tell the computer which parts of the overlapping images correspond
+                to each other, in part 2 we will get the computer to do this itself.  We will follow the paper "Multi-Image Matching using Multi-Scale Oriented Patches"  by Brown et al.
             </p>
 
         </div>
@@ -103,6 +102,12 @@
     </div>
 </div>
 <!-- Overview end -->
+
+<div class="container my-5">
+    <div class=" section-title">
+        <h1> <strong> Part 1 - Image Mosaicing and Transformations </strong> </h1>
+    </div>
+</div>
 
 <!-- Part 0 Start -->
 <div class="container">
@@ -297,6 +302,179 @@
         </p>
     </div>
 
+</div>
+
+<div class="container my-5">
+    <div class=" section-title">
+        <h1> <strong> Part 2 </strong> - Feature Matching for Autostitching  </h1>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class=" section-title">
+        <h2> Detecting Corner Features in an Image: </h2>
+    </div>
+    <div class="section-text">
+        <p>  Now, the task is to have the computer properly determine correspondences between overlapping images, without us having to do it manually.
+        </p>
+        <p> In part 1 when we wanted to indicate correspondences, the easiest places to label were corners.  It turns out that is similar for computers - corners are easy to identify
+            across seperate images by using Harris Corners.  The main idea is that we can apply a convolution to every pixel on the image (other than the edges, where the convolution is ill defined).
+            This will give us a scalar value for each pixel, telling us how "cornery" it is.  
+        </p>
+
+        <p> One way to use this value is to just take the say, first 50 values: </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/b000.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/b001.png" alt="Photo 1" class="photo img-fluid"> 
+        </div>
+    </div>
+
+    <div class=" section-title">
+        <h2> Adaptive Non-Maximal Supression: </h2>
+    </div>
+
+    <div class="section-text">
+        <p>  However, there is an issue with just taking the first n strongest Harris Corners.  Often, they are distributed disproportionately over the image: in this case, most of them are on 
+            buildings, and almost none are in the sky.  This is not ideal for our end goal of calculating a homography.
+        </p> 
+            
+        <p>  So we have two competing interests: 1, we want our corners to be strong, and 2, we wants them to be well distributed.  To try and balance these interests,
+            we use Adaptive Non-Maximal Supression (ANMS) which takes into account both the Harris strength of the pixel and a new quantity called a "supression radius" 
+            which is calculated based on a points distance from a sufficently stronger corner.  The complete algorithm is described in the paper, but the result is that it gives us
+            a much more homogenous distribution of corners, which are still strong relative to their neighboring corners:
+        </p>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/b002.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/b003.png" alt="Photo 1" class="photo img-fluid"> 
+        </div>
+    </div>
+
+    <div class=" section-title">
+        <h2> Feature Descriptor Extraction </h2>
+    </div>
+
+    <div class="section-text">
+        <p>  We have the corners in each image.  Alone, this is not useful to us as the coordinates of corners in the image give us very little information.
+            We need a way of featurizing the image around these points, so that we can match corners between the images.
+        </p> 
+            
+        <p>  Following the paper, we do the following steps:
+
+        </p>
+        <p>  1) Take the 40 x 40 area of pixels (of which each corner is the center)        
+        </p>
+
+        <p>
+            2) Denorm and standardize Each 40 x 40 matrix
+        </p>
+
+        <p>
+            3) Downscale to 8 x 8
+        </p>
+        <p>
+            4) Vectorize the patch into a 192 dimension vector (8 x 8 x 3 color channels).  I think the paper used greyscale features, but I decided to do it this way and it was effective.
+        </p>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/b100.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/b101.png" alt="Photo 1" class="photo img-fluid"> 
+        </div>
+    </div>
+
+    <div class=" section-title">
+        <h2> Feature Matching </h2>
+    </div>
+    <div class="section-text">
+        <p>  Now that we have a vector representation of the features, we can worry about actually creating pairs of corners, which we beleive correspond to the 
+            same real world locations between images.
+        </p> 
+            
+        <p>  To do this, we will use Lowe Thresholding.  The idea is that, for all valid featue correspondences between image 1 and 2, the closest neighbor for a feature in image 1
+            to a feature in image 2 should be much closer than the second nearest neighbor.  This is not true for invalid correspondences, where the second nearest neighbor may only be slightly
+            further away than the first nearest neighbor.  Intuitively, this is because in most cases there is exactly 1 place in each image that is exactly the same as in the other image.
+        </p>
+
+        <p> So, by finding the 1st and 2nd nearest neighbors, we can only retain the points that have a sufficently low ratio.  For example, in the below images, my cutoff ratio was .25, meaning 
+            that the first nearest neighbor had to be 4x closer than the second to be considered a valid correspondence.
+        </p>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/b200.png" alt="Photo 1" class="photo img-fluid">
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/b201.png" alt="Photo 1" class="photo img-fluid"> 
+        </div>
+    </div>
+
+    <p> As a side note, I used numpy based linear algebra to calculate the optimal neighbors, as fancy algorithms will suffer from the law of large numbers, making numpy the most efficent solution in practical terms.  </p>
+
+    <p> As you can see, most points that appear in one image also appear in the other.  Notice how only the overlapping area of the image has points.
+    </p>
+
+    <div class=" section-title">
+        <h2> Calculating Homographies Robustly with RANSAC  </h2>
+
+    </div>
+
+    <p> Though Lowe Thresholding is pretty good at weeding out false correlations, the situation in the last section was pretty ideal. In practice, I found that in most images,
+        I had to increase the cutoff from .25 to .4, which allowed in more false correlations. Even if the .25 cutoff lets in a sufficent amount of points, if even one of them is incorrect,
+        it can throw off the homography calculation completely.  Therefore, we need another layer of protection against outliers.
+    </p>
+
+    <p> The Random Sample Consensus (RANSAC) algorithm is a method of picking points from a group that well represent the majority of the points.  It goes as follows: </p>
+    <p> 1) Pick 4 pairs from the points identified by Lowe Thresholding </p>
+    <p> 2) Calculate the homography using this subset </p>
+    <p> 3) Calculate how many of the transformed first points are within a specified epsilon radius from the actual second point</p>
+    <p> 4) Repeat this process many times, and calculate the final homography based on the biggest group of inliers.  This group is unlikely to have outliers,
+        and will produce a robust homography. </p>
+
+    <p> In practice, I found using RANSAC with 1000 iterations usually was very robust even against a significant portion of the points being false matches! I eventually tuned the 
+        pipeline so they could almost always match images, even if only a small area was overlapping.
+    </p>
+
+    <div class=" section-title">
+        <h2> Final Results:  </h2>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/402.png" alt="Photo 1" class="photo img-fluid">
+            <p> Manual Stitching </p>
+        </div>
+        <div class="col-md-6 mb-3">
+            <img src="proj4a_assets/b300.png" alt="Photo 1" class="photo img-fluid"> 
+            <p> Automated Pipeline</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <img src="proj4a_assets/b301.png" alt="Photo 1" class="photo img-fluid">
+            <p> Automated Pipeline</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <img src="proj4a_assets/b302.png" alt="Photo 1" class="photo img-fluid">
+            <p> Automated Pipeline</p>
+        </div>
+    </div>
 </div>
 
 
