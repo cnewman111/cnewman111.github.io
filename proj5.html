@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- page icon -->
+    <link rel="shortcut icon" type="x-icon" href="page_icon.jpg">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Cinzel Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- CSS Stylsheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Font awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- JS -->
+    <script defer src="scripts.js"></script>
+    <title>CS 180 - Colin Newman</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark px-5 pt-2 fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand fs-3" href="index.html"> CS 180 - Colin Newman </a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav fs-5 ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html"> Home </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="proj1.html"> Project 1 </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="proj2.html"> Project 2 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="proj3.html"> Project 3 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="proj4a.html"> Project 4 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="proj5.html"> Project 5 </a>
+                </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <!-- Navbar end -->
+
+<!-- Landing start -->
+<section id="landing">
+    <div class="container-fluid h-100">
+        <div class="row no-gutters h-100">
+            <!-- Left side: white block with text -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center text-center bg-dark">
+                <div>
+                    <h1 class="fw-bold text-white"> Project 5 </h1>
+                    <p class="lead mb-4 text-white"> Fun With Diffusion Models! </p>
+                </div>
+            </div>
+            <!-- Right side: image -->
+            <div class="col-md-6 d-flex align-items-center justify-content-center text-center bg-secondary">
+                    <img class="img-fluid rounded" src="proj5_assets/1.png" alt="background image of the UC Berkeley Campanile">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Landing end -->
+
+<!-- Overview start -->
+<div class="container my-5">
+    <div class="row align-items-center">
+        <div class="col-md-5">
+            <h2> Overview </h2>
+            <p> In this project we will use diffusion models to create images! 
+            </p>
+
+            <p> Part A will deal with using a pretrained neural net to create new algorithms.  </p>
+
+            <p> In part B we will construct and train our own net for image generation. </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/amalfi-coast.png" class="img-fluid" alt="aligned onion church">
+            Coastline
+        </div>
+        <div class="col-md-1">
+            <i class="fa-solid fa-arrow-right fa-beat fa-4x"></i>
+        </div>
+        <div class="col-md-4">
+            <img src="proj5_assets/man-wearing-hat.png"img-fluid" alt="aligned onion church">
+            A man with a hat
+        </div>
+    </div>
+</div>
+<!-- Overview end -->
+
+<!-- Part 0 Start -->
+<div class="container">
+    <div class=" section-title">
+        <h1> Part A: The Power of Diffusion Models! </h1>
+    </div>
+    <div class=" section-title">
+        <h2> Part 0: Setup </h2>
+    </div>
+    <div class="section-text">
+        <p> The model we use is the DeepFloyd IF diffusion model.  Due to memory, storage, and time constraints, I only use the first stage, which creates the initial 32 x 32 images, but not the second stage, which upscales the image to be larger and more detailed (except for the below 3 images).  </p>
+
+        <p> I used a random seed 42.  However, my results were still non-deterministic. I beleive this is because of GPU non-determinism, caused by how floating point operations in the GPU are not perfectly commutative.
+        </p>
+
+        <p> These are 3 example images that use both stages: </p>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj5_assets/1.png" alt="Photo 1" class="photo img-fluid">
+            An oil painting of a snowy village
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj5_assets/2.png" alt="Photo 2" class="photo img-fluid">
+            A man wearing a hat
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj5_assets/3.png" alt="Photo 3" class="photo img-fluid">
+            A rocket ship
+        </div>
+    </div>
+
+    <div class="section-text">
+
+        <p> Using both stages yields good results!  Changing the num_inference steps seems to improve the quality of the images. </p>
+    </div>
+
+<!-- Part 0 End -->
+
+<!-- Part 1 Start -->
+<div class="container my-5">
+    <div class=" section-title">
+        <h2> Part 1: Sampling Loops </h2>
+    </div>
+    <div class="section-text">
+        <b> 1.1: Implementing the Forward Process
+        </b>
+    </div>
+    <div class="section-text">
+        <p> Adding noise to the image: t=0 is minimum, t=1000 is maximum.
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <img src="proj5_assets/original.png" alt="Photo 1" class="photo img-fluid">
+            <p> Original Image </p>
+        </div>
+        <div class="col-md-3 mb-3">
+            <img src="proj5_assets/250.png" alt="Photo 2" class="photo img-fluid">
+            <p> t=250 </p>
+        </div>
+        <div class="col-md-3 mb-3">
+            <img src="proj5_assets/500.png" alt="Photo 3" class="photo img-fluid">
+            <p> t=500 </p>
+        </div>
+        <div class="col-md-3 mb-3">
+            <img src="proj5_assets/750.png" alt="Photo 3" class="photo img-fluid">
+            <p> t=750 </p>
+        </div>
+    </div>
+    
+
+    <div class="section-text">
+        <b> 1.2: Classical Denoising
+        </b>
+    </div>
+    <div class="section-text">
+        <p> "Denoising" by performing a gaussian blur        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj5_assets/21.png" alt="Photo 1" class="photo img-fluid">
+            <p> t=250, blurred </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj5_assets/22.png" alt="Photo 2" class="photo img-fluid">
+            <p> t=500, blurred </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj5_assets/23.png" alt="Photo 3" class="photo img-fluid">
+            <p> t=750, blurred </p>
+        </div>
+    </div>
+
+    <div class="section-text">
+        <b> 1.3: One-Step Denoising
+        </b>
+    </div>
+    <div class="section-text">
+        <p> Here we use DeepFloyd to attempt to denoise the image in a single step:  </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <img src="proj5_assets/31.png" alt="Photo 1" class="photo img-fluid">
+            <p> t=250, one step denoised </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj5_assets/32.png" alt="Photo 2" class="photo img-fluid">
+            <p> t=500, one step denoised </p>
+        </div>
+        <div class="col-md-4 mb-3">
+            <img src="proj5_assets/33.png" alt="Photo 3" class="photo img-fluid">
+            <p> t=750, one step denoised </p>
+        </div>
+    </div>
+
+    <div class="section-text">
+        <b> 1.4: Iterative Denoising
+        </b>
+    </div>
+    <div class="section-text">
+        <p> Here we use multiple steps to denoise the image, hopefully acheiving better results:   </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <img src="proj5_assets/690.png" alt="Photo 1" class="photo img-fluid">
+            <p> t=690 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/540.png" alt="Photo 1" class="photo img-fluid">
+            <p> t=540 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/390.png" alt="Photo 1" class="photo img-fluid">
+            <p> t=390 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/240.png" alt="Photo 1" class="photo img-fluid">
+            <p> t=240 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/90.png" alt="Photo 1" class="photo img-fluid">
+            <p> t=90 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/4clean.png" alt="Photo 1" class="photo img-fluid">
+            <p> t=0 (Denoised) </p>
+        </div>
+    </div>
+
+    <div class="section-text">
+        <p> Summary of 1.1 through 1.4 - Comparison of denoising methods from an image with t=750 noise:
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <img src="proj5_assets/750.png" alt="Photo 1" class="photo img-fluid">
+            <p> Noised </p>
+        </div>
+        <div class="col-md-3">
+            <img src="proj5_assets/23.png" alt="Photo 1" class="photo img-fluid">
+            <p> Classically "Denoised" </p>
+        </div>
+        <div class="col-md-3">
+            <img src="proj5_assets/33.png" alt="Photo 1" class="photo img-fluid">
+            <p> One-Step Denoised </p>
+        </div>
+        <div class="col-md-3">
+            <img src="proj5_assets/4clean.png" alt="Photo 1" class="photo img-fluid">
+            <p> Iteratively Denoised </p>
+        </div>
+    </div>
+
+    <div class="section-text">
+        <b> 1.5: Diffusion Model Sampling
+        </b>
+    </div>
+    <div class="section-text">
+        <p> Using the diffusion model to generate images from the entire high quality image space: </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <img src="proj5_assets/50.png" alt="Photo 1" class="photo img-fluid">
+            <p> Sampled Image 1 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/51.png" alt="Photo 1" class="photo img-fluid">
+            <p> Sampled Image 2 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/52.png" alt="Photo 1" class="photo img-fluid">
+            <p> Sampled Image 3 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/53.png" alt="Photo 1" class="photo img-fluid">
+            <p> Sampled Image 4 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/54.png" alt="Photo 1" class="photo img-fluid">
+            <p> Sampled Image 5 </p>
+        </div>
+    </div>
+
+    <div class="section-text">
+        <b> 1.6: Classifier-Free Guidance (CFG)
+        </b>
+    </div>
+    <div class="section-text">
+        <p> In the section above, the model doesen't have a specific "idea" in mind for what it is trying to target.
+            As a result, the images are nonsensical.   </p>
+
+        <p>  To combat this, we use classifier-free guidance, which will direct the model towards a more coherent image: </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <img src="proj5_assets/60.png" alt="Photo 1" class="photo img-fluid">
+            <p> Sampled Image 1 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/61.png" alt="Photo 1" class="photo img-fluid">
+            <p> Sampled Image 2 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/62.png" alt="Photo 1" class="photo img-fluid">
+            <p> Sampled Image 3 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/63.png" alt="Photo 1" class="photo img-fluid">
+            <p> Sampled Image 4 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/64.png" alt="Photo 1" class="photo img-fluid">
+            <p> Sampled Image 5 </p>
+        </div>
+    </div>
+
+    <div class="section-text">
+        <b> 1.7: Image-to-image Translation
+        </b>
+    </div>
+
+    <div class="section-text">
+        <p> I think of this as modulating between a random point on the high quality image manifold to an image we specify:
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <img src="proj5_assets/original.png" alt="Photo 1" class="photo img-fluid">
+            <p> Campanile </p>
+        </div>
+        <div class="col-md-4">
+            <img src="proj5_assets/vader.png" alt="Photo 1" class="photo img-fluid">
+            <p> Darth Vader </p>
+        </div>
+        <div class="col-md-4">
+            <img src="proj5_assets/rat.jpeg" alt="Photo 1" class="photo img-fluid">
+            <p> A rat </p>
+        </div>
+    </div>
+
+    <div class="section-text">
+        <p> Campanile Test Image:
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <img src="proj5_assets/71.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=1 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/73.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=3 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/75.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=5 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/77.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=7 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/710.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=10 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/720.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=20 </p>
+        </div>
+    </div>
+
+    <div class="section-text">
+        <p> Darth Vader:
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <img src="proj5_assets/vader1.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=1 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/vader2.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=3 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/vader3.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=5 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/vader4.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=7 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/vader5.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=10 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/vader6.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=20 </p>
+        </div>
+    </div>
+
+    <div class="section-text">
+        <p> An ugly rat:
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <img src="proj5_assets/rat1.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=1 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/rat2.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=3 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/rat3.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=5 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/rat4.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=7 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/rat5.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=10 </p>
+        </div>
+        <div class="col-md-2">
+            <img src="proj5_assets/rat6.png" alt="Photo 1" class="photo img-fluid">
+            <p> i_start=20 </p>
+        </div>
+    </div>
+    
+</div>
+
+<div class="section-text">
+    <b> 1.7.1: Editing Hand-Drawn and Web Images
+    </b>
+</div>
+
+<div class="section-text">
+    <p> I modulate between a random point on the high quality image space to the following 3 images:
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="proj5_assets/minecraft.png" alt="Photo 1" class="photo img-fluid">
+        <p> A photo of a minecraft house </p>
+    </div>
+    <div class="col-md-4">
+        <img src="proj5_assets/face.png" alt="Photo 1" class="photo img-fluid">
+        <p> A really nice self portrait </p>
+    </div>
+    <div class="col-md-4">
+        <img src="proj5_assets/house.png" alt="Photo 1" class="photo img-fluid">
+        <p> An elegant drawing of a house </p>
+    </div>
+</div>
+
+<div class="section-text">
+    <p> Minecraft:
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <img src="proj5_assets/minecraft1.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=1 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/minecraft2.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=3 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/minecraft3.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=5 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/minecraft4.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=7 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/minecraft5.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=10 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/minecraft6.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=20 </p>
+    </div>
+</div>
+
+<div class="section-text">
+    <p> Self-portrait:
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <img src="proj5_assets/face1.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=1 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/face2.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=3 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/face3.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=5 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/face4.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=7 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/face5.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=10 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/face6.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=20 </p>
+    </div>
+</div>
+
+<div class="section-text">
+    <p> A beautiful house:
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <img src="proj5_assets/house1.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=1 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/house2.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=3 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/house3.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=5 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/house4.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=7 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/house5.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=10 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/house6.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=20 </p>
+    </div>
+</div>
+
+<div class="section-text">
+    <b> 1.7.2: Inpainting
+    </b>
+</div>
+
+<div class="section-text">
+    <p> I mask off an area of the following images in order to modify them:
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="proj5_assets/original.png" alt="Photo 1" class="photo img-fluid">
+        <p> The test image (top is masked) </p>
+    </div>
+    <div class="col-md-4">
+        <img src="proj5_assets/tiger.png" alt="Photo 1" class="photo img-fluid">
+        <p> A tiger (entire head is masked)</p>
+    </div>
+    <div class="col-md-4">
+        <img src="proj5_assets/steve.png" alt="Photo 1" class="photo img-fluid">
+        <p> Steve from minecraft (face is masked) </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="proj5_assets/test_modified.png" alt="Photo 1" class="photo img-fluid">
+        A lighthouse?
+    </div>
+    <div class="col-md-4">
+        <img src="proj5_assets/tiger_modified.png" alt="Photo 1" class="photo img-fluid">
+        Zombie tiger? (Zoom in, this one is subtle)
+    </div>
+    <div class="col-md-4">
+        <img src="proj5_assets/steve_modified.png" alt="Photo 1" class="photo img-fluid">
+        Steve + A minion from dispicible me?
+    </div>
+</div>
+
+<div class="section-text">
+    <b> 1.7.3: Text-Conditional Image-to-image Translation
+    </b>
+</div>
+
+<div class="section-text">
+    <p> Similar to the section above, except we now specify where on the image manifold we want to start from.  In this case, the manifold of rocket ships, to the test images.       </p>
+</div>
+
+<div class="section-text">
+    <p> A rocket ship -> Campanile      </p>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <img src="proj5_assets/rocket1.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=1 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/rocket3.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=3 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/rocket5.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=5 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/rocket7.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=7 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/rocket10.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=10 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/rocket20.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=20 </p>
+    </div>
+</div>
+
+<div class="section-text">
+    <p> A pencil -> Campanile      </p>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <img src="proj5_assets/pencil1.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=1 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/pencil2.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=3 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/pencil3.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=5 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/pencil4.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=7 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/pencil5.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=10 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/pencil6.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=20 </p>
+    </div>
+</div>
+
+<div class="section-text">
+    <p> A man wearing a hat -> Campanile </p>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <img src="proj5_assets/man1.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=1 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/man2.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=3 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/man3.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=5 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/man4.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=7 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/man5.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=10 </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/man6.png" alt="Photo 1" class="photo img-fluid">
+        <p> i_start=20 </p>
+    </div>
+</div>
+
+<div class="section-text">
+    <b> 1.8: Visual Anagrams:
+    </b>
+</div>
+
+<div class="section-text">
+    <p> These are images that look like a different thing depending on if you look at them upright or rotated 180 degrees: </p>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <img src="proj5_assets/old-man.png" alt="Photo 1" class="photo img-fluid">
+        <p> An oil painting of an old man </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/fire.png" alt="Photo 1" class="photo img-fluid">
+        <p> An oil painting of people around a campfire </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/hipster.png" alt="Photo 1" class="photo img-fluid">
+        <p> A hipster barista</p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/dog.png" alt="Photo 1" class="photo img-fluid">
+        <p> A dog </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/amalfi-coast.png" alt="Photo 1" class="photo img-fluid">
+        <p> coastline </p>
+    </div>
+    <div class="col-md-2">
+        <img src="proj5_assets/man-wearing-hat.png" alt="Photo 1" class="photo img-fluid">
+        <p> A man wearing a hat </p>
+    </div>
+</div>
+
+<div class="section-text">
+    <b> 1.9: Hybrid Images
+    </b>
+</div>
+<div class="section-text">
+    <p> These are images that look like different things if you zoom in or zoom out:      </p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="proj5_assets/skull_far.png" alt="Photo 1" class="photo img-fluid">
+        <p> Zoomed in, a waterfall.  Zoomed out, a skull </p>
+    </div>
+    <div class="col-md-4">
+        <img src="proj5_assets/man-waterfall.png" alt="Photo 1" class="photo img-fluid">
+        <p> Zoomed in, a waterfall.  Zoomed out, an oil painting of an old man. </p>
+    </div>
+    <div class="col-md-4">
+        <img src="proj5_assets/rocket-far.png" alt="Photo 1" class="photo img-fluid">
+        <p> Zoomed in, a pencil.  Zoomed out, a rocket. </p>
+    </div>
+</div>
+
+<div class=" section-title">
+    <h1> Part B: Diffusion Models from Scratch! </h1>
+</div>
+<div class=" section-title">
+    <h2> Part 1: Training a Single-Step Denoising UNet </h2>
+</div>
+<div class="section-text">
+    <b> 1.1-1.2: Implementing the UNet and Using the UNet to Train a Denoiser 
+    </b>
+</div>
+<div class="row">
+    <div class="col-12">
+        <img src="proj5_assets/sigma_plot.png" alt="Photo 1" class="photo img-fluid">
+        Plot of different levels of noise on various digits
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p> Training Loss (L2 Loss):  </p>
+        <img src="proj5_assets/loss-1.png" alt="Photo 1" class="photo img-fluid">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p> Noisy Images:  </p>
+        <img src="proj5_assets/noised_images.png" alt="Photo 1" class="photo img-fluid">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p> Results after 1st epoch:  </p>
+        <img src="proj5_assets/1-epoch.png" alt="Photo 1" class="photo img-fluid">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p> Results after 5th epoch:  </p>
+        <img src="proj5_assets/5-epoch.png" alt="Photo 1" class="photo img-fluid">
+    </div>
+</div>
+
+<div class=" section-title">
+    <h2> Part 2: Training a Diffusion Model </h2>
+</div>
+<div class="section-text">
+    <b> 2.1 - 2.3: Adding Time Conditioning, Training, and Sampling the new Unet:
+    </b>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p> Loss Curve (l2):  </p>
+        <img src="proj5_assets/loss-2.png" alt="Photo 1" class="photo img-fluid">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p> Results after 5th epoch:  </p>
+        <img src="proj5_assets/epoch-5.png" alt="Photo 1" class="photo img-fluid">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p> Results after 20th epoch:  </p>
+        <img src="proj5_assets/epoch-20.png" alt="Photo 1" class="photo img-fluid">
+    </div>
+</div>
+<div class="section-text">
+    <b> 2.4 - 2.5: Adding Class Conditioning, Training, and Sampling the new Unet:
+    </b>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p> Loss Curve (l2)  </p>
+        <img src="proj5_assets/loss-3.png" alt="Photo 1" class="photo img-fluid">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p> Results after 5th epoch:  </p>
+        <img src="proj5_assets/c-epoch-5.png" alt="Photo 1" class="photo img-fluid">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p> Results after 20th epoch:  </p>
+        <img src="proj5_assets/c-epoch-20.png" alt="Photo 1" class="photo img-fluid">
+    </div>
+</div>
+
+
+</div>
+<!-- Part 1 End -->
+
+
+
+</body>
